@@ -11,6 +11,7 @@ class MyLinearRegression():
 		self.alpha = alpha
 		self.max_iter = max_iter
 		self.thetas = thetas
+		self.losses = []
 
 	@staticmethod
 	def add_intercept(x):
@@ -33,7 +34,7 @@ class MyLinearRegression():
 		x = df.to_numpy()
 		return (x)
 
-	def	gradient(self,x, y, theta):
+	def	gradient(self,x, y, theta): #sum(y(i)_predict - y(i)) / m
 		if theta is None or x is None or y is None:
 			return 0
 		if len(x) != len(y):
@@ -45,7 +46,7 @@ class MyLinearRegression():
 		gradient = np.dot(x_t, J) / m
 		return (gradient)
 
-	def fit_(self, x, y):
+	def fit_(self, x, y):#fits the model to the training dataset
 		if x is None or y is None:
 			return 0
 		if len(x) != len(y):
@@ -56,6 +57,8 @@ class MyLinearRegression():
 				break
 			self.thetas[0] = self.thetas[0] - self.alpha * delta_j[0]
 			self.thetas[1] = self.thetas[1] - self.alpha * delta_j[1]
+			y_p = self.predict_(x)
+			self.losses.append(self.loss_(y, y_p))
 		return (self.thetas)
 
 	def predict_(self, x):
