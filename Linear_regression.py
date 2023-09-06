@@ -2,6 +2,14 @@ import numpy as np
 import math
 import pandas as pd
 
+'''
+interesting to add to your program flags such as:
+-vs 	- visualize standardized dataset and solution
+-vo 	- visualize original dataset and solution
+-err 	- print mean squared error after each iteration of regression
+-lr 	- set learning rate (affects speed of learning), must be followed by a number
+'''
+
 class MyLinearRegression():
 	"""
 	Description:
@@ -12,6 +20,10 @@ class MyLinearRegression():
 		self.max_iter = max_iter
 		self.thetas = thetas
 		self.losses = []
+		self.current_iter = -1
+
+	def print_params(self, y, y_hat):
+		print(f"\rIteration: {self.current_iter}, (theta0, theta1): ({self.thetas[0]}, {self.thetas[1]}), Loss: {self.losses[-1]:.4f}, MSE: {self.mse_(y, y_hat):.4f}, MAE: {self.mae_(y, y_hat):.4f}", end='', flush=True)
 
 	@staticmethod
 	def add_intercept(x):
@@ -46,7 +58,7 @@ class MyLinearRegression():
 		gradient = np.dot(x_t, J) / m
 		return (gradient)
 
-	def fit_(self, x, y):#fits the model to the training dataset
+	def fit_(self, x, y, _bool):#fits the model to the training dataset
 		if x is None or y is None:
 			return 0
 		if len(x) != len(y):
@@ -59,6 +71,9 @@ class MyLinearRegression():
 			self.thetas[1] = self.thetas[1] - self.alpha * delta_j[1]
 			y_p = self.predict_(x)
 			self.losses.append(self.loss_(y, y_p))
+			self.current_iter = i
+			if (_bool == 1):
+				self.print_params(y, y_p)
 		return (self.thetas)
 
 	def predict_(self, x):
