@@ -3,6 +3,14 @@
 To create a linear regression function, train the model on the given dataset, save generated indexes and use 
 them to predict car price depending on it's mileage.
 
+## Requirements
+Before running the program, make sure you have the following dependencies installed:
+  - numpy: A library for numerical computations.
+  - pandas: A library for data manipulation and analysis.
+  - matplotlib: A library for data visualization.
+  - scikit-learn: A machine learning library for data preprocessing and evaluation.
+You can install these packages using pip if you don't have them already: pip install numpy pandas matplotlib scikit-learn
+
 ## Usage
 - git clone https://github.com/shimazadeh/Ft_linear_regression.git Linear-regression
 - cd Linear-regression
