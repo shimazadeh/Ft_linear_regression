@@ -23,7 +23,7 @@ class MyLinearRegression():
 		self.current_iter = -1
 
 	def print_params(self, y, y_hat):
-		print(f"\rIteration: {self.current_iter}, (theta0, theta1): ({self.thetas[0]}, {self.thetas[1]}), Loss: {self.losses[-1]:.4f}, MSE: {self.mse_(y, y_hat):.4f}, MAE: {self.mae_(y, y_hat):.4f}", end='', flush=True)
+		print(f"Iteration: {self.current_iter}, (theta0, theta1): ({self.thetas[0]}, {self.thetas[1]}), Loss: {self.losses[-1]:.4f}, MSE: {self.mse_(y, y_hat):.4f}, MAE: {self.mae_(y, y_hat):.4f}")
 
 	@staticmethod
 	def add_intercept(x):
