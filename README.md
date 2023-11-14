@@ -14,7 +14,10 @@ You can install these packages using pip if you don't have them already: pip ins
 ## Usage
 - git clone https://github.com/shimazadeh/Ft_linear_regression.git Linear-regression
 - cd Linear-regression
-- python3 ft_linear_regression.py [path/to/dataset.csv]
+- python3 main.py [path/to/dataset.csv] [#iteration] [learning_rate] [mode]
+- There are two modes to the program:
+  - mode 1: finds the best thetas to be initialized using hyperparameter tuning technique
+  - mode 2: uses the parameters from best_params.json file created in the previous option and train and test the model based on that.
 
 ## Approach
 - Data Preprocessing: The program reads the dataset from the CSV file, normalizes the data to the range of 0-1.
@@ -26,6 +29,4 @@ You can install these packages using pip if you don't have them already: pip ins
   to evaluate the model's performance.
 - Visualization: The program visualizes the normalized dataset, the regression model, and the cost function as shown below:
   
-![Figure_1](https://github.com/shimazadeh/Ft_linear_regression/assets/67879533/2b4d502c-d9a8-4c9c-a3b0-f62ac38bd210)
-
-![Figure_2](https://github.com/shimazadeh/Ft_linear_regression/assets/67879533/2481e403-d1b6-40cc-9aa0-6ac0ad6ed66e)
+![Alt text](output.png)
