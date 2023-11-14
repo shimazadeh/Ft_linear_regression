@@ -38,6 +38,41 @@ def normalize(data): #normalizing the data and scaling to the range of 0-1
 	
 	return (new_scaled)
 
+def train_test(best_thetas, X, Y, _alpha, _iter):
+	X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=42, shuffle=True)
+
+	linear_model_best = MyLR(best_thetas, alpha=_alpha, max_iter =_iter)
+	linear_model_best.fit_(X_train, Y_train, 1)
+
+	Y_pred = linear_model_best.predict_(X_test)
+	MSE = linear_model_best.mse_(Y_test, Y_pred)
+	MAE = linear_model_best.mae_(Y_test, Y_pred)
+
+	fig, axes = plt.subplots(3, 1, figsize=(6, 12))
+
+	# plot the distribution of the original data
+	axes[0].hist(X, color='blue', edgecolor='black')
+	axes[0].set_title("Normalized Data Distribution")
+	axes[0].set_xlabel("Mileage (in km)")
+	axes[0].set_ylabel("Frequency")
+	
+	# plot the model
+	axes[1].scatter(X, Y, color='deepskyblue')
+	axes[1].plot(X_test, Y_pred, color='limegreen')
+	axes[1].set_xlabel("mileage (in km)")
+	axes[1].set_ylabel("price (in euro)")
+	axes[1].set_title("Price = f(Mileage) | Normalized")
+	axes[1].text(0.95, 0.95, "MSE: {:.2f}, MAE: {:.2f}".format(MSE, MAE), ha='right', va='top', transform=plt.gca().transAxes)
+
+	# plot the cost
+	axes[2].plot(range(len(linear_model_best.losses)), linear_model_best.losses, color='deepskyblue')
+	axes[2].set_xlabel("Number of iterations")
+	axes[2].set_ylabel("Cost")
+	axes[2].set_title("Cost = f(iteration) | L.rate = 0.01")
+
+	plt.tight_layout()
+	plt.savefig("output.png")
+
 def main():
 	if (len(sys.argv) < 4):
 		print("correct usage of the program: python scripy.py data.csv iter lr mode")
@@ -49,39 +84,15 @@ def main():
 	X_km_scaled = normalize(X_km)
 	Y_price_scaled = normalize(Y_price)
 
-	plt.scatter(X_km_scaled, Y_price_scaled, color='deepskyblue')
-	X_train, X_test, Y_train, Y_test = train_test_split(X_km_scaled, Y_price_scaled, test_size=0.3, random_state=42, shuffle=True)
-
-	if (sys.argv[4] == '1'): #hyperparameter mode
+	if (sys.argv[4] == '1'): #finding best params
 		best_thetas = find_best_params(X_train, Y_train, float(sys.argv[3]), int(sys.argv[2]))
 		with open('best_params.json', 'w') as file:
 			json.dump(best_thetas.tolist(), file)
 	elif (sys.argv[4] == '2'): #training mode
 		with open('best_params.json', 'r') as file:
 			best_thetas = np.array(json.load(file))
-
-		linear_model_best = MyLR(best_thetas, alpha=float(sys.argv[3]), max_iter =int(sys.argv[2]))
-		linear_model_best.fit_(X_train, Y_train, 1)
-
-		Y_pred = linear_model_best.predict_(X_test)
-		MSE = linear_model_best.mse_(Y_test, Y_pred)
-		MAE = linear_model_best.mae_(Y_test, Y_pred)
-
-		# plot the model
-		plt.plot(X_test, Y_pred, color='limegreen')
-		plt.xlabel("mileage (in km)")
-		plt.ylabel("price (in euro)")
-		plt.title("Price = f(Mileage) | Normalized")
-		plt.text(0.95, 0.95, "MSE: {:.2f}, MAE: {:.2f}".format(MSE, MAE), ha='right', va='top', transform=plt.gca().transAxes)
-
-		# plot the cost
-		plt.figure()
-		plt.plot(range(len(linear_model_best.losses)), linear_model_best.losses, color='deepskyblue')
-		plt.xlabel("Number of iterations")
-		plt.ylabel("Cost")
-		plt.title("Cost = f(iteration) | L.rate = 0.01")
-
-		plt.show()
+		train_test(best_thetas, X_km_scaled, Y_price_scaled, float(sys.argv[3]), int(sys.argv[2]))
+		
 
 if __name__ == "__main__":
 	main()

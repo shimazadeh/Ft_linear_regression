@@ -2,19 +2,7 @@ import numpy as np
 import math
 import pandas as pd
 
-'''
-interesting to add to your program flags such as:
--vs 	- visualize standardized dataset and solution
--vo 	- visualize original dataset and solution
--err 	- print mean squared error after each iteration of regression
--lr 	- set learning rate (affects speed of learning), must be followed by a number
-'''
-
 class MyLinearRegression():
-	"""
-	Description:
-	My personnal linear regression class to fit like a boss.lol
-	"""
 	def __init__(self, thetas, alpha=0.0001, max_iter=1000):
 		self.alpha = alpha
 		self.max_iter = max_iter
@@ -23,7 +11,7 @@ class MyLinearRegression():
 		self.current_iter = -1
 
 	def print_params(self, y, y_hat):
-		print(f"Iteration: {self.current_iter}, (theta0, theta1): ({self.thetas[0]}, {self.thetas[1]}), Loss: {self.losses[-1]:.4f}, MSE: {self.mse_(y, y_hat):.4f}, MAE: {self.mae_(y, y_hat):.4f}")
+		print(f"Iteration {self.current_iter}/{self.max_iter}, (theta0, theta1): ({self.thetas[0]}, {self.thetas[1]}), Loss: {self.losses[-1]:.4f}, MSE: {self.mse_(y, y_hat):.4f}, MAE: {self.mae_(y, y_hat):.4f}")
 
 	@staticmethod
 	def add_intercept(x):
@@ -84,7 +72,7 @@ class MyLinearRegression():
 			return 0
 		return (np.dot(z, self.thetas))
 
-	def loss_(self, y, y_hat):#using MSE
+	def loss_(self, y, y_hat):
 		MSE = (np.square(np.subtract(y, y_hat)).mean())
 		return (MSE)
 
