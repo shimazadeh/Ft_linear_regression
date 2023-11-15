@@ -1,7 +1,6 @@
-# DataScience x linear_regression | 42Paris
+# DataScience | linear_regression from Scratch | 42Paris
 ## Objective
-To create a linear regression function, train the model on the given dataset, save generated indexes and use 
-them to predict car price depending on it's mileage.
+To create a modular linear regression model from scratch, train the model on the given dataset, save generated indexes and use them to predict car price depending on it's mileage.
 
 ## Requirements
 Before running the program, make sure you have the following dependencies installed:
@@ -23,10 +22,10 @@ You can install these packages using pip if you don't have them already: pip ins
 - Data Preprocessing: The program reads the dataset from the CSV file, normalizes the data to the range of 0-1.
 - Train-Test Splitting: The program splits the dataset into training and test sets.
 - Hyperparameter Tuning: It uses hyperparameter tuning method to find the best initial parameters (thetas) for the linear regression model.
-- Model Training: The linear regression model is trained using gradient descent. The program provides options to visualize the training process and print the
-  model parameters, Loss, MSE and MAE each iteration.
-- Model Evaluation: After training, the program predicts prices using the test set and calculates the Mean Squared Error (MSE) and Mean Absolute Error (MAE)
-  to evaluate the model's performance.
+- Model Training: The linear regression model is trained using gradient descent. The program visualize the training process and print the model parameters, Loss, MSE and MAE each iteration:
+![Alt text](<Screen Shot 2023-11-15 at 10.29.44 AM.png>)
+
+- Model Evaluation: After training, the program predicts prices using the test set and calculates the Mean Squared Error (MSE) and Mean Absolute Error (MAE) to evaluate the model's performance.
 - Visualization: The program visualizes the normalized dataset, the regression model, and the cost function as shown below:
   
 ![Alt text](output.png)
