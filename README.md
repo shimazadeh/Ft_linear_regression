@@ -1,4 +1,4 @@
-# DataScience | linear_regression from Scratch | 42Paris
+# DataScience | Linear regression from Scratch | 42Paris
 ## Objective
 To create a modular linear regression model from scratch, train the model on the given dataset, save generated indexes and use them to predict car price depending on it's mileage.
 
